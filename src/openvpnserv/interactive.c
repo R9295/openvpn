@@ -1964,6 +1964,7 @@ SetNameServerAddresses(PWSTR itf_id, const nrpt_address_t *addresses)
                 addr_list[offset++] = ',';
             }
             strcpy(addr_list + offset, addresses[j]);
+            ASSERT(offset + strlen(addresses[j]) + 1 <= sizeof(addr_list));
             offset += strlen(addresses[j]);
         }
 

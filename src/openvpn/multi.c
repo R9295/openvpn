@@ -4233,7 +4233,7 @@ tunnel_server(struct context *top)
 
     /* initialize global multi_context object */
     multi_init(top);
-
+    printf("ONE");
     /* initialize our cloned top object */
     multi_top_init(top);
 
