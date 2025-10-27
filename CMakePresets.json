@@ -122,6 +122,13 @@
             }
         },
         {
+            "name": "asan",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "ASAN"
+            }
+        },
+        {
             "name": "clangtoolset",
             "toolset": "ClangCL"
         },
@@ -172,6 +179,18 @@
         {
             "name": "win-x86-clang-debug",
             "inherits": [ "base", "base-windows", "clangtoolset", "x86", "debug" ]
+        },
+        {
+            "name": "win-amd64-asan",
+            "inherits": [ "base", "base-windows", "x64", "asan" ]
+        },
+        {
+            "name": "win-arm64-asan",
+            "inherits": [ "base", "base-windows", "arm64", "asan" ]
+        },
+        {
+            "name": "win-x86-asan",
+            "inherits": [ "base", "base-windows", "x86", "asan" ]
         },
         {
             "name": "unix-native",
@@ -239,6 +258,21 @@
             "configuration": "Debug"
         },
         {
+            "name": "win-amd64-asan",
+            "configurePreset": "win-amd64-asan",
+            "configuration": "ASAN"
+        },
+        {
+            "name": "win-arm64-asan",
+            "configurePreset": "win-arm64-asan",
+            "configuration": "ASAN"
+        },
+        {
+            "name": "win-x86-asan",
+            "configurePreset": "win-x86-asan",
+            "configuration": "ASAN"
+        },
+        {
             "name": "unix-native",
             "configurePreset": "unix-native"
         }
@@ -275,6 +309,18 @@
         {
             "name": "win-x86-clang-debug",
             "configurePreset": "win-x86-clang-debug"
+        },
+        {
+            "name": "win-amd64-asan",
+            "configurePreset": "win-amd64-asan"
+        },
+        {
+            "name": "win-arm64-asan",
+            "configurePreset": "win-arm64-asan"
+        },
+        {
+            "name": "win-x86-asan",
+            "configurePreset": "win-x86-asan"
         },
         {
             "name": "unix-native",

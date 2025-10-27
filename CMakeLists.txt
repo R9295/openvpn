@@ -60,14 +60,35 @@ if (ENABLE_COMPILE_COMMANDS)
 endif ()
 
 # AddressSanitize - use CXX=clang++ CC=clang cmake -DCMAKE_BUILD_TYPE=asan to build with ASAN
-set(CMAKE_C_FLAGS_ASAN
-    "-fsanitize=address,undefined -fno-sanitize-recover=all -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O1"
-    CACHE STRING "Flags used by the C compiler during AddressSanitizer builds."
-    FORCE)
-set(CMAKE_CXX_FLAGS_ASAN
-    "-fsanitize=address,undefined -fno-sanitize-recover=all -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O1"
-    CACHE STRING "Flags used by the C++ compiler during AddressSanitizer builds."
-    FORCE)
+if (MSVC)
+    # MSVC-specific ASAN flags
+    set(CMAKE_C_FLAGS_ASAN
+        "/fsanitize=address /Zi /Od"
+        CACHE STRING "Flags used by the C compiler during AddressSanitizer builds."
+        FORCE)
+    set(CMAKE_CXX_FLAGS_ASAN
+        "/fsanitize=address /Zi /Od"
+        CACHE STRING "Flags used by the C++ compiler during AddressSanitizer builds."
+        FORCE)
+    set(CMAKE_EXE_LINKER_FLAGS_ASAN
+        "/DEBUG /INCREMENTAL:NO"
+        CACHE STRING "Flags used by the linker during AddressSanitizer builds."
+        FORCE)
+    set(CMAKE_SHARED_LINKER_FLAGS_ASAN
+        "/DEBUG /INCREMENTAL:NO"
+        CACHE STRING "Flags used by the shared linker during AddressSanitizer builds."
+        FORCE)
+else()
+    # GCC/Clang ASAN flags
+    set(CMAKE_C_FLAGS_ASAN
+        "-fsanitize=address,undefined -fno-sanitize-recover=all -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O1"
+        CACHE STRING "Flags used by the C compiler during AddressSanitizer builds."
+        FORCE)
+    set(CMAKE_CXX_FLAGS_ASAN
+        "-fsanitize=address,undefined -fno-sanitize-recover=all -fno-optimize-sibling-calls -fsanitize-address-use-after-scope -fno-omit-frame-pointer -g -O1"
+        CACHE STRING "Flags used by the C++ compiler during AddressSanitizer builds."
+        FORCE)
+endif()
 
 function(check_and_add_compiler_flag flag variable)
     check_c_compiler_flag(${flag} ${variable})
