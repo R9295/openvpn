@@ -1,0 +1,149 @@
+# LibFuzzer dictionary for OpenVPN push message parsing
+# This dictionary helps the fuzzer discover interesting inputs faster
+
+# Push message types
+"PUSH_REQUEST"
+"PUSH_REPLY"
+"PUSH_UPDATE"
+"PUSH_CONTINUATION"
+
+# Common separators
+","
+" "
+"\n"
+"\r"
+
+# Push update option flags
+"-"
+"?"
+"-?"
+"?-"
+
+# Common push options
+"dhcp-option"
+"route"
+"redirect-gateway"
+"route-gateway"
+"topology"
+"ping"
+"ping-restart"
+"ifconfig"
+"peer-id"
+"cipher"
+"auth"
+"keysize"
+"tls-auth"
+"comp-lzo"
+"push-continuation"
+"keepalive"
+"inactive"
+"explicit-exit-notify"
+
+# DNS options
+"DNS"
+"DOMAIN"
+"WINS"
+"NBT"
+"NTP"
+
+# IP addresses
+"8.8.8.8"
+"1.1.1.1"
+"10.10.10.1"
+"192.168.1.0"
+"0.0.0.0"
+
+# Network masks
+"255.255.255.0"
+"255.255.0.0"
+"255.0.0.0"
+
+# Route options
+"local"
+"def1"
+"bypass-dhcp"
+"bypass-dns"
+"block-local"
+"unblock-local"
+
+# Topology options
+"net30"
+"p2p"
+"subnet"
+
+# Connection options
+"tun"
+"tap"
+"tcp"
+"udp"
+
+# Common values
+"10"
+"60"
+"120"
+"1200"
+
+# Protocol versions
+"IV_PROTO"
+"IV_VER"
+
+# Edge cases and potentially problematic inputs
+""
+" "
+",,"
+",,,"
+"  "
+"\t"
+"\n\n"
+" -"
+"- "
+" ?"
+"? "
+",-"
+"-,"
+
+# Long option names for overflow testing
+"dhcp-option DNS 8.8.8.8"
+"redirect-gateway local"
+"route 0.0.0.0 0.0.0.0"
+"route 192.168.1.0 255.255.255.0"
+
+# Combined options (common patterns from test file)
+"PUSH_UPDATE,dhcp-option DNS 8.8.8.8"
+"PUSH_UPDATE,-dhcp-option"
+"PUSH_UPDATE,?dhcp-option DNS 8.8.8.8"
+"PUSH_REPLY,dhcp-option DNS 8.8.8.8,route 10.10.10.0"
+
+# Malformed inputs
+"PUSH_UPDATE "
+"PUSH_UPDATE,"
+"PUSH_UPDATE, "
+" PUSH_UPDATE"
+"PUSH_UPDATEerr"
+"PUSH_UPDATE,,"
+
+# Special characters
+"="
+":"
+";"
+"|"
+"&"
+"$"
+"!"
+"@"
+"#"
+"%"
+"^"
+"*"
+"("
+")"
+"["
+"]"
+"{"
+"}"
+"\\"
+"/"
+"\""
+"'"
+"`"
+"~"

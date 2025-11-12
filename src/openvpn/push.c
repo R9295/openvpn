@@ -1100,7 +1100,6 @@ process_incoming_push_msg(struct context *c, const struct buffer *buffer,
                           unsigned int *option_types_found)
 {
     struct buffer buf = *buffer;
-
     if (buf_string_compare_advance(&buf, "PUSH_REQUEST"))
     {
         c->c2.push_request_received = true;
